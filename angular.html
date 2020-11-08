@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    </head>
+<body class="body" ng-app="myApplication" ng-controller="myController">
+    
+
+<div class="head"><h1>To do list</h1></div>
+<input type="text" ng-model="task_name" placeholder="task title"/>
+<button class="button"ng-click="save()">save</button>
+<br><br>
+
+<div class="divta">
+<table class="table" border="1">
+    <tr>
+        <td>#</td>
+        <td>Task Title</td>
+        <td>Status</td>
+        <td>Actions</td>
+    </tr>
+
+    <tr ng-repeat="task in tasks">
+        <td>{{$index+1}}</td>
+        <td class="{{task.status?'completed':''}}">{{task.task_title}}</td>
+        <td>{{task.status?"Finished":"In progress..."}}</td>
+        <td>
+            <button ng-click="delete($index)">Delete</button>
+            <button ng-click="finished($index)">Finish</button>
+        </td>
+
+    </tr>
+    
+</table>
+</div>
+<script>
+   var module= angular.module("myApplication",[]);
+   module.controller("myController",function($scope){
+       $scope.tasks=[]
+       $scope.save=function(){
+           $scope.tasks.push({task_title:$scope.task_name,status:false});
+
+       }
+       $scope.delete=function(i){
+           $scope.tasks.splice(i,1)
+
+       }
+
+       $scope.finished=function(i){
+           $scope.tasks[i].status=true;
+
+       }
+
+
+   })
+
+</script>
+<style>
+    .completed{
+        text-decoration:line-through;
+    }
+    .table{
+        background-color:hotpink;
+    }
+    .body{
+        background-color: cyan;
+        margin-left: 700px;
+    }
+    .button{
+        background-color: greenyellow;
+        border-radius: 5cm;
+    }
+    .head{
+        padding-left: 30px;
+        color: lavender;
+    }
+
+    .divta{
+
+        
+    }
+</style>
+</body>
+
+</html>
